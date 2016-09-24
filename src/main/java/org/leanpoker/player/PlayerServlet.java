@@ -16,6 +16,7 @@ import com.google.gson.JsonParser;
 public class PlayerServlet extends HttpServlet {
 
 	private final static Gson gson = new GsonBuilder().create();
+    private static final String VERSION = "1";
 
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +43,7 @@ public class PlayerServlet extends HttpServlet {
             PlayerBot.showdown(new JsonParser().parse(gameState));
         }
         if (req.getParameter("action").equals("version")) {
-            resp.getWriter().print(PlayerBot.VERSION);
+            resp.getWriter().print(VERSION);
         }
     }
 }

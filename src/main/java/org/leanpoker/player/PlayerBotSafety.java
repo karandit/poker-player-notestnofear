@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 
 public class PlayerBotSafety {
 
-    private static final String VERSION = "No Test, No Fear";
 	private static final Gson gson = new GsonBuilder().create();
 
     public static int betRequest(String gameState) {
