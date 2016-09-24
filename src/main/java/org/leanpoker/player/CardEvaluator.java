@@ -3,6 +3,7 @@ package org.leanpoker.player;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -22,17 +23,21 @@ public class CardEvaluator {
 	
 	public void createRequest(List<Card> cards) throws IOException {
 		URL url = new URL("http://rainman.leanpoker.org/rank");
-		URLConnection connection = url.openConnection();
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
-		connection.setDoInput(true);
+//		connection.setDoInput(true);
 		connection.setDoOutput(true);
 		
-		connection.setRequestProperty("Content-Type", "application/json");
-		connection.setRequestProperty("accept", "application/json");
+		connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		connection.setRequestProperty("accept", "*/*");
+		connection.setRequestProperty("user-agent", "MyUser");
+		connection.setRequestMethod("POST");
+		
 		
 		OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
 		wr.write(createRequestParam(cards).toString());
 		wr.flush();
+		wr.close();
 		
 		InputStream is = connection.getInputStream();
 		byte[] buf = new byte[connection.getContentLength()];
