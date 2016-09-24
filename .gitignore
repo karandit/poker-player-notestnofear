@@ -1,3 +1,4 @@
+
 *.class
 
 # Package Files #
@@ -7,3 +8,8 @@ build
 .gradle
 .idea
 poker-player-java.iml
+/bin/
+
+.classpath
+.project
+.settings/
