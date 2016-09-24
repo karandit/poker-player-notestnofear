@@ -8,10 +8,11 @@ import com.google.gson.JsonElement;
 
 public class PlayerBotSafety {
 
-    static final String VERSION = "No Test, No Fear";
-	private final static Gson gson = new GsonBuilder().create();
+    private static final String VERSION = "No Test, No Fear";
+	private static final Gson gson = new GsonBuilder().create();
 
     public static int betRequest(String gameState) {
+
     	Map<String, Object> request = gson.fromJson(gameState, Map.class);
     	Object current_buy_in = request.get("current_buy_in");
     		if (current_buy_in != null) {
