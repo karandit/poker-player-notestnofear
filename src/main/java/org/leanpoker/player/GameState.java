@@ -1,6 +1,7 @@
 package org.leanpoker.player;
 
 import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -17,4 +18,6 @@ public class GameState {
 	private final int dealer;
 	private final int orbits;
 	private final int in_action;
+	private final List<Card> community_cards;
+	
 }
