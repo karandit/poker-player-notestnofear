@@ -41,6 +41,9 @@ dependencies {
     testCompile 'junit:junit:4.11'
     compile 'com.google.code.gson:gson:2.2.4'
 	compile 'org.projectlombok:lombok:1.16.6'
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'
+
+	
     
     def tomcatVersion = '7.0.11'
 
