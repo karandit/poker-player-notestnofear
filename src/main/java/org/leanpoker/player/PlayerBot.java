@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 
-public class Player {
+public class PlayerBot {
 
     static final String VERSION = "No Test, No Fear";
 

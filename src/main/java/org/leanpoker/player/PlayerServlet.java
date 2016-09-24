@@ -16,7 +16,9 @@ import com.google.gson.JsonParser;
 @WebServlet("/")
 public class PlayerServlet extends HttpServlet {
 
-    @Override
+	private final static Gson gson = new GsonBuilder().create();
+
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().print("Java player is running");
     }
@@ -25,17 +27,18 @@ public class PlayerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("action").equals("bet_request")) {
             String gameState = req.getParameter("game_state");
-
-            Gson gson = new GsonBuilder().create();
-            resp.getWriter().print(Player.betRequest(gson.fromJson(gameState, Map.class)));
+            
+            System.err.println("PlayerServlet.doPost(): " + gameState);
+            System.out.println("PlayerServlet.doPost(): " + gameState);
+            resp.getWriter().print(PlayerBot.betRequest(gson.fromJson(gameState, Map.class)));
         }
         if (req.getParameter("action").equals("showdown")) {
             String gameState = req.getParameter("game_state");
 
-            Player.showdown(new JsonParser().parse(gameState));
+            PlayerBot.showdown(new JsonParser().parse(gameState));
         }
         if (req.getParameter("action").equals("version")) {
-            resp.getWriter().print(Player.VERSION);
+            resp.getWriter().print(PlayerBot.VERSION);
         }
     }
 }
