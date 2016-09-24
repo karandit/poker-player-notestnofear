@@ -4,9 +4,11 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,30 +26,59 @@ public class PlayerBot {
     	
     	List<String> highRanks = Arrays.asList("9", "10", "J", "Q", "K", "A");
     	
+    
+    	
+    	if (isStraight(game)) {
+    		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 450;
+		}
+    	
+    	if (isHazard(game)) {
+    		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 100;
+		}
+
+    	boolean raise = isJustRaise(ourCards);
+    	if (raise) {
+    		return current_buy_in - ourself.getBet() + game.getMinimum_raise();
+		}
+
     	long highCards = ourCards
     			.stream()
     			.map(card -> card.getRank())
     			.filter(rank -> highRanks.contains(rank))
     			.count();
-    
     	
-    	boolean hazardRaise = isHazard(game);
-    	boolean raise = isJustRaise(ourCards);
-    	
-    	if (hazardRaise) {
-    		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 100;
-		}
-    	if (raise) {
-    		return current_buy_in - ourself.getBet() + game.getMinimum_raise();
-		}
     	if (highCards > 1 && current_buy_in < ourself.getBet() + 450) {
     		return current_buy_in - ourself.getBet();
 		}
+    	
     	if (highCards == 1 && current_buy_in < ourself.getBet() + 100) {
     		return current_buy_in - ourself.getBet();
 		}
 		return 0;
     }
+
+	private static boolean isStraight(GameState game) {
+    	Player ourself = game.getPlayers().get(game.getIn_action());
+    	List<Card> allCards = new LinkedList<Card>();
+    	allCards.addAll(ourself.getHole_cards());
+    	allCards.addAll(game.getCommunity_cards());
+
+    	if (allCards.size() < 5) {
+    		return false;
+    	}
+
+    	List<Integer> sortedranks = allCards.stream()
+	    	.map(card -> card.getRankInt())
+	    	.sorted(Integer::compare).collect(Collectors.toList());
+    	
+    	for (int i = 0; i < sortedranks.size() - 1; i++) {
+			if (Math.abs(sortedranks.get(i) - sortedranks.get(i+1)) != 1) {
+				return false;
+			}
+		}
+    	
+		return true;
+	}
 
 	private static boolean isJustRaise(List<Card> ourCards) {
 		Map<String, List<Card>> groupedBySuit = groupedByRank(ourCards);

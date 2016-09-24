@@ -44,7 +44,6 @@ public class CardEvaluator {
 		IOUtils.read(is, buf);
 		String string = IOUtils.toString(buf);
 		System.out.println(string);
-		
 	}
 	
 	private JsonObject createRequestParam(List<Card> cards) {
