@@ -17,10 +17,12 @@ public class PlayerBot {
     	List<Card> ourCards = ourself.getHole_cards();
     	
     	
+    	
+    	
     	if (current_buy_in != 0) {
 			 return current_buy_in + 3;
 		}
-		return 1000;
+		return 300;
     }
 
     public static void showdown(JsonElement game) {
