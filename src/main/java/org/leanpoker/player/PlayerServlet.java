@@ -27,11 +27,12 @@ public class PlayerServlet extends HttpServlet {
         if (req.getParameter("action").equals("bet_request")) {
             String gameState = req.getParameter("game_state");
             
-            System.err.println("PlayerServlet.doPost(): " + gameState);
             System.out.println("PlayerServlet.doPost(): " + gameState);
             try {
             	resp.getWriter().print(PlayerBot.betRequest(gameState));
         	} catch (Exception e) {
+        		System.out.println("Experimental Playerbot failed:");        		
+        		e.printStackTrace(System.out);
             	resp.getWriter().print(PlayerBotSafety.betRequest(gameState));
             }
         }
