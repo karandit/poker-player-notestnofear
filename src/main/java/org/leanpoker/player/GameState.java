@@ -2,22 +2,100 @@ package org.leanpoker.player;
 
 import java.util.List;
 
-import lombok.Data;
-
-@Data
+//@Data
 public class GameState {
-	private final List<Player> players;
-	private final String tournament_id;
-	private final String game_id;
-	private final int round;
-	private final int bet_index;
-	private final int small_blind;
-	private final int current_buy_in;
-	private final int pot;
-	private final int minimum_raise;
-	private final int dealer;
-	private final int orbits;
-	private final int in_action;
-	private final List<Card> community_cards;
+	
+	private List<Player> players;
+	private String tournament_id;
+	private String game_id;
+	private int round;
+	private int bet_index;
+	private int small_blind;
+	private int current_buy_in;
+	private int pot;
+	private int minimum_raise;
+	private int dealer;
+	private int orbits;
+	
+	public List<Player> getPlayers() {
+		return players;
+	}
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+	public String getTournament_id() {
+		return tournament_id;
+	}
+	public void setTournament_id(String tournament_id) {
+		this.tournament_id = tournament_id;
+	}
+	public String getGame_id() {
+		return game_id;
+	}
+	public void setGame_id(String game_id) {
+		this.game_id = game_id;
+	}
+	public int getRound() {
+		return round;
+	}
+	public void setRound(int round) {
+		this.round = round;
+	}
+	public int getBet_index() {
+		return bet_index;
+	}
+	public void setBet_index(int bet_index) {
+		this.bet_index = bet_index;
+	}
+	public int getSmall_blind() {
+		return small_blind;
+	}
+	public void setSmall_blind(int small_blind) {
+		this.small_blind = small_blind;
+	}
+	public int getCurrent_buy_in() {
+		return current_buy_in;
+	}
+	public void setCurrent_buy_in(int current_buy_in) {
+		this.current_buy_in = current_buy_in;
+	}
+	public int getPot() {
+		return pot;
+	}
+	public void setPot(int pot) {
+		this.pot = pot;
+	}
+	public int getMinimum_raise() {
+		return minimum_raise;
+	}
+	public void setMinimum_raise(int minimum_raise) {
+		this.minimum_raise = minimum_raise;
+	}
+	public int getDealer() {
+		return dealer;
+	}
+	public void setDealer(int dealer) {
+		this.dealer = dealer;
+	}
+	public int getOrbits() {
+		return orbits;
+	}
+	public void setOrbits(int orbits) {
+		this.orbits = orbits;
+	}
+	public int getIn_action() {
+		return in_action;
+	}
+	public void setIn_action(int in_action) {
+		this.in_action = in_action;
+	}
+	public List<Card> getCommunity_cards() {
+		return community_cards;
+	}
+	public void setCommunity_cards(List<Card> community_cards) {
+		this.community_cards = community_cards;
+	}
+	public int in_action;
+	public List<Card> community_cards;
 	
 }
