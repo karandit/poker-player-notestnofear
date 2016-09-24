@@ -24,10 +24,11 @@ public class PlayerBot {
     	
     	List<String> highRanks = Arrays.asList("9", "10", "J", "Q", "K", "A");
     	
-    	boolean check = ourCards
+    	long highCards = ourCards
     			.stream()
     			.map(card -> card.getRank())
-    			.anyMatch(rank -> highRanks.contains(rank));
+    			.filter(rank -> highRanks.contains(rank))
+    			.count();
     
     	
     	boolean hazardRaise = isHazard(game);
@@ -39,7 +40,10 @@ public class PlayerBot {
     	if (raise) {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise();
 		}
-    	if (check && current_buy_in < ourself.getBet() + 100) {
+    	if (highCards > 1 && current_buy_in < ourself.getBet() + 450) {
+    		return current_buy_in - ourself.getBet();
+		}
+    	if (highCards == 1 && current_buy_in < ourself.getBet() + 100) {
     		return current_buy_in - ourself.getBet();
 		}
 		return 0;

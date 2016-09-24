@@ -16,7 +16,7 @@ import com.google.gson.JsonParser;
 public class PlayerServlet extends HttpServlet {
 
 	private final static Gson gson = new GsonBuilder().create();
-    private static final String VERSION = "6";
+    private static final String VERSION = "7";
 
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
