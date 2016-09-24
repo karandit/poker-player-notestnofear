@@ -1,7 +1,11 @@
 package org.leanpoker.player;
 
+import static java.util.stream.Collectors.groupingBy;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,10 +27,25 @@ public class PlayerBot {
     			.stream()
     			.map(card -> card.getSuit())
     			.anyMatch(suit -> highCards.contains(suit));
+    
+    	Map<String, List<Card>> groupedBySuit = ourCards
+    		.stream()
+    		.collect(groupingBy(card -> card.getSuit()));
+    	
+    	boolean haveAtLeastOnePair = groupedBySuit
+    			.entrySet()
+    			.stream()
+    			.anyMatch(entry -> entry.getValue().size() > 2);
+    	
+    	if (haveAtLeastOnePair) {
+    		return current_buy_in + game.getMinimum_raise();
+		}
     	
     	if (haveAtLeastOneHighCard) {
-			 return current_buy_in;
+    		return current_buy_in;
 		}
+    	
+    	
     	
 		return 0;
     }
