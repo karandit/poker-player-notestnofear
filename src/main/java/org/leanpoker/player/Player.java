@@ -1,4 +1,6 @@
 package org.leanpoker.player;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -9,4 +11,6 @@ public class Player {
     private final String version;
     private final int stack;
     private final int bet;
+    private final List<Card> hole_cards;
+    
 }
