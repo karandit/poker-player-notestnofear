@@ -39,7 +39,7 @@ public class PlayerBot {
     	if (raise) {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise();
 		}
-    	if (check) {
+    	if (check && current_buy_in < ourself.getBet() + 100) {
     		return current_buy_in - ourself.getBet();
 		}
 		return 0;
