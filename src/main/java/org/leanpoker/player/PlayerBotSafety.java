@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 
 public class PlayerBotSafety {
 
-    private static final String VERSION = "No Test, No Fear";
 	private static final Gson gson = new GsonBuilder().create();
 
     public static int betRequest(String gameState) {
@@ -19,7 +18,7 @@ public class PlayerBotSafety {
     			 Double d = Double.valueOf(current_buy_in.toString());
     			 return d.intValue();
     		}
-    		return 1000;
+    		return 50;
     }
 
     public static void showdown(JsonElement game) {
