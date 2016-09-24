@@ -18,7 +18,7 @@ public class PlayerBotSafety {
     			 Double d = Double.valueOf(current_buy_in.toString());
     			 return d.intValue();
     		}
-    		return 1000;
+    		return 50;
     }
 
     public static void showdown(JsonElement game) {

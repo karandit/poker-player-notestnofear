@@ -1,5 +1,6 @@
 package org.leanpoker.player;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -16,13 +17,18 @@ public class PlayerBot {
     	Player ourself = game.getPlayers().get(game.getIn_action());
     	List<Card> ourCards = ourself.getHole_cards();
     	
+    	List<String> highCards = Arrays.asList("9", "10", "J", "Q", "K", "A");
     	
+    	boolean haveAtLeastOneHighCard = ourCards
+    			.stream()
+    			.map(card -> card.getSuit())
+    			.anyMatch(suit -> highCards.contains(suit));
     	
-    	
-    	if (current_buy_in != 0) {
-			 return current_buy_in + 3;
+    	if (haveAtLeastOneHighCard) {
+			 return current_buy_in;
 		}
-		return 300;
+    	
+		return 0;
     }
 
     public static void showdown(JsonElement game) {
