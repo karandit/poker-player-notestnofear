@@ -1,7 +1,6 @@
 package org.leanpoker.player;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +29,11 @@ public class PlayerServlet extends HttpServlet {
             
             System.err.println("PlayerServlet.doPost(): " + gameState);
             System.out.println("PlayerServlet.doPost(): " + gameState);
-            resp.getWriter().print(PlayerBot.betRequest(gson.fromJson(gameState, Map.class)));
+            try {
+            	resp.getWriter().print(PlayerBot.betRequest(gameState));
+        	} catch (Exception e) {
+            	resp.getWriter().print(PlayerBotSafety.betRequest(gameState));
+            }
         }
         if (req.getParameter("action").equals("showdown")) {
             String gameState = req.getParameter("game_state");

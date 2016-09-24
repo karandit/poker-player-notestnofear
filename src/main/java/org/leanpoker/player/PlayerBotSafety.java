@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
-public class PlayerBot {
+public class PlayerBotSafety {
 
     static final String VERSION = "No Test, No Fear";
 	private final static Gson gson = new GsonBuilder().create();
