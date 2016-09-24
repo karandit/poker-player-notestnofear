@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +15,7 @@ import com.google.gson.JsonElement;
 
 public class PlayerBot {
 
+	private final static List<String> highRanks = Arrays.asList("9", "10", "J", "Q", "K", "A");
 	private final static Gson gson = new GsonBuilder().create();
 
     public static int betRequest(String gameStateJson) {
@@ -24,14 +24,9 @@ public class PlayerBot {
     	Player ourself = game.getPlayers().get(game.getIn_action());
     	List<Card> ourCards = ourself.getHole_cards();
     	
-    	List<String> highRanks = Arrays.asList("9", "10", "J", "Q", "K", "A");
-    	
-    
-    	
     	if (isPoker(game) || isStraight(game)) {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 450;
 		}
-    		
     		
     	if (isHazard(game)) {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 100;
@@ -42,11 +37,7 @@ public class PlayerBot {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise();
 		}
 
-    	long highCards = ourCards
-    			.stream()
-    			.map(card -> card.getRank())
-    			.filter(rank -> highRanks.contains(rank))
-    			.count();
+    	long highCards = countOfHighCard(ourCards);
     	
     	if (highCards > 1 && current_buy_in < ourself.getBet() + 450) {
     		return current_buy_in - ourself.getBet();
@@ -55,8 +46,24 @@ public class PlayerBot {
     	if (highCards == 1 && current_buy_in < ourself.getBet() + 100) {
     		return current_buy_in - ourself.getBet();
 		}
+    	
+    	if (game.getCommunity_cards().size() >= 3) {
+    		if(countOfHighCard(game.getCommunity_cards()) >= 1) {
+    		   return current_buy_in - ourself.getBet();
+    		}
+    	}
+    	
 		return 0;
     }
+
+	private static long countOfHighCard(List<Card> cards) {
+    	long highCards = cards
+    			.stream()
+    			.map(card -> card.getRank())
+    			.filter(rank -> highRanks.contains(rank))
+    			.count();
+		return highCards;
+	}
 
 	private static boolean isPoker(GameState game) {
     	Player ourself = game.getPlayers().get(game.getIn_action());
