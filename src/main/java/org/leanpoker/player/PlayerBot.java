@@ -28,10 +28,11 @@ public class PlayerBot {
     	
     
     	
-    	if (isStraight(game)) {
+    	if (isPoker(game) || isStraight(game)) {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 450;
 		}
-    	
+    		
+    		
     	if (isHazard(game)) {
     		return current_buy_in - ourself.getBet() + game.getMinimum_raise() + 100;
 		}
@@ -56,6 +57,16 @@ public class PlayerBot {
 		}
 		return 0;
     }
+
+	private static boolean isPoker(GameState game) {
+    	Player ourself = game.getPlayers().get(game.getIn_action());
+    	
+    	Map<String, List<Card>> groupedByRank = ourself.getHole_cards()
+	    		.stream()
+	    		.collect(groupingBy(card -> card.getRank()));
+
+    	return groupedByRank.entrySet().stream().anyMatch(entry -> entry.getValue().size() == 4);
+	}
 
 	private static boolean isStraight(GameState game) {
     	Player ourself = game.getPlayers().get(game.getIn_action());
