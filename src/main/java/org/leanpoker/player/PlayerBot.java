@@ -11,9 +11,10 @@ public class PlayerBot {
     public static int betRequest(Map<String, Object> request) {
     		Object current_buy_in = request.get("current_buy_in");
     		if (current_buy_in != null) {
-    			return Integer.valueOf(current_buy_in.toString());
+    			 Double d = Double.valueOf(current_buy_in.toString());
+    			 return d.intValue();
     		}
-    		return 0;
+    		return 15;
     }
 
     public static void showdown(JsonElement game) {
